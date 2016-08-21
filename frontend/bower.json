@@ -1,0 +1,29 @@
+{
+  "name": "voice-synth",
+  "homepage": "yandex.ru",
+  "version": "3.3.7",
+  "authors": [
+    "g10k"
+  ],
+  "description": "A free, open source, Bootstrap admin theme created by Start Bootstrap",
+  "keywords": [
+    "boostrap"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "pages",
+    "index.html",
+    "/js"
+  ],
+  "main": "voice-synth",
+  "dependencies": {
+    "bootstrap": "~3.3.7",
+    "font-awesome": "~4.2.0",
+    "metisMenu": "~1.1.3"
+  }
+}

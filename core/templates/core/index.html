@@ -1,0 +1,107 @@
+{% load staticfiles %}
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Soft-way Text to Speach Synthesizer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <body>
+
+    <div class="container">
+      <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Soft-way Text to Speach Synthesizer</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_anonymous %}
+            <li><a><span class="fa fa-user"></span> {{ request.user }} </a></li>
+        {% else %}
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-icon fa-user"></i> {{ request.user }} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="/logout/">Выйти <i class="fa fa-icon fa-sign-out"></i></a></li>
+              </ul>
+            </li>
+          {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+      <div class="well well-sm image-font">
+        <div class="container-fluid">
+                <div class="col-md-6">
+                <form id='1' method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.text }}
+
+                        {{ form.text.errors }}
+                    </div>
+                </form>
+                </div>
+                <div class="col-md-6">
+                <button form="1" type="button" id="get_mp3" class="btn btn-primary btn-lg "><i class="fa fa-play"></i> Сгенерировать аудио-файл</button>
+                <p></p>
+                <a id="download_button" target="_blank" class="btn btn-primary btn-lg " disabled><i class="fa fa-download"></i> Скачать</a>
+                <a id="play_button" target="_blank" class="btn btn-success btn-lg " disabled><i class="fa fa-volume-up"></i> Прослушать</a>
+                </div>
+                <!-- /.row -->
+
+        </div>
+            <a class="btn btn-social-icon btn-vk" href="/login/vk-oauth2"><span class="fa fa-vk"></span></a>
+            <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook"><span class="fa fa-facebook"></span></a>
+            <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook-app"><span class="fa fa-facebook"></span></a>
+            <a class="btn btn-social-icon btn-twitter disabled" href="/login/twitter"><span class="fa fa-twitter"></span></a>
+            <a class="btn btn-social-icon btn-google disabled" href="/login/yandex-oauth2"><span class="fa fa-">Y</span></a>
+            <a class="btn btn-social-icon btn-google disabled" href="/login/yaru"><span class="fa fa-">Я</span></a>
+      </div>
+
+      <footer class="footer">
+        <p>© 2016 Soft-way, Inc.</p>
+      </footer>
+{#    </div>#}
+    </div> <!-- /container -->
+<div></div>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+        $(function(){
+            var generate_url = 'tts/generate/',
+                get_file_url = 'tts/get_file',
+                download_button = $('#download_button'),
+                play_button = $("#play_button");
+
+            $("#get_mp3").click(function(){
+                var text = $('#id_text').val();
+                if (!text)
+                        return;
+                play_button.click(function(){
+                    a = new Audio(get_file_url + '?uuid=' + $(this).attr('data-file-uuid'));
+                    a.play();
+                });
+                var response = $.post(generate_url, {
+                    'text':text
+                },function(data){
+                    download_button.removeAttr('disabled').attr('href',get_file_url + '?uuid=' + data['uuid']);
+                    play_button.removeAttr('disabled').attr('data-file-uuid', data['uuid']);
+                });
+            })
+        })
+
+    </script>
+</body>
+</html>
