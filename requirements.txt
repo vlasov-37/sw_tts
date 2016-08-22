@@ -1,0 +1,7 @@
+Django==1.9.8
+djangorestframework==3.4.0
+django-rest-swagger==0.3.10
+python-social-auth
+django-speach-synthesizer
+django-cleanup==0.4.2
+#gunicorn==19.6.0
