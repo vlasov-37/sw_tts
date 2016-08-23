@@ -62,6 +62,7 @@
                 <!-- /.row -->
 
         </div>
+          Авторизация:
             <a class="btn btn-social-icon btn-vk" href="/login/vk-oauth2"><span class="fa fa-vk"></span></a>
             <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook"><span class="fa fa-facebook"></span></a>
             <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook-app"><span class="fa fa-facebook"></span></a>
@@ -93,8 +94,10 @@
                     a = new Audio(get_file_url + '?uuid=' + $(this).attr('data-file-uuid'));
                     a.play();
                 });
+                var csrf_token = $('[name=csrfmiddlewaretoken]').val();
                 var response = $.post(generate_url, {
-                    'text':text
+                    'text':text,
+                    'csrfmiddlewaretoken':csrf_token
                 },function(data){
                     download_button.removeAttr('disabled').attr('href',get_file_url + '?uuid=' + data['uuid']);
                     play_button.removeAttr('disabled').attr('data-file-uuid', data['uuid']);

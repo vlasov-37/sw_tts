@@ -23,6 +23,7 @@
   "main": "voice-synth",
   "dependencies": {
     "bootstrap": "~3.3.7",
+    "bootstrap-social": "~4.10.1",
     "font-awesome": "~4.2.0",
     "metisMenu": "~1.1.3"
   }
