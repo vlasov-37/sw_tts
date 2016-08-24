@@ -33,6 +33,6 @@ if settings.DEBUG:
     #     (r'^media/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.MEDIA_ROOT}),
     # ]
     # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static('bower_components', document_root=settings.BASE_DIR + '/frontend/bower_components')
+    urlpatterns += static('node_modules', document_root=settings.BASE_DIR + '/node_modules')
 
 
