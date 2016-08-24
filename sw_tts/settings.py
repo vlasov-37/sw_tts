@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_swagger',
     'rest_framework',
-    'django_speach_synthesizer',
+    'tts',
     'core',
     'social.apps.django_app.default',
 ]
@@ -167,7 +167,19 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 # SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
 
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '25/minute',
+        'user': '25/minute'
+    }
+}
+
 try:
     from sw_tts.local_settings import *
 except ImportError:
     print("Warning: no local_settings.py")
+

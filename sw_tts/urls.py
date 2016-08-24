@@ -19,14 +19,13 @@ from django.contrib import admin
 from django.conf import settings
 
 from django.views.generic import TemplateView
-import core.views
 
 urlpatterns = [
-    url(r'^$', core.views.index),
+    url(r'^$', TemplateView.as_view(template_name='core/index.html')),
     url(r'^admin/', admin.site.urls),
-    url(r'^tts/', include('django_speach_synthesizer.urls')),
+    url(r'^tts/', include('tts.urls')),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^logout/$', 'django.contrib.auth.views.logout',{'next_page': '/'})
 ]
 
 if settings.DEBUG:
