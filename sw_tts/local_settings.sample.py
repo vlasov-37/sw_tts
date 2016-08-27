@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_swagger',
     'rest_framework',
-    'django_speach_synthesizer',
+    'tts',
     'core',
     'social.apps.django_app.default',
 ]
