@@ -21,7 +21,8 @@ RUN apt-get update && \
                     gcc \
                     libao4 \
                     libao-dev \
-                    pkg-config
+                    pkg-config \
+                    npm
 
 # install RHVoice
 RUN git clone https://github.com/Olga-Yakovleva/RHVoice.git /opt/RHVoice
@@ -35,6 +36,8 @@ WORKDIR /opt/sw_tts
 
 RUN pip3 install -r requirements.txt
 RUN cp sw_tts/local_settings.sample.py sw_tts/local_settings.py
+
+RUN npm install
 
 #COPY supervisor/prod.conf /etc/supervisor/conf.d/sw_tts.conf
 
