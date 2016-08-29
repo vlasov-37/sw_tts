@@ -1,4 +1,5 @@
 $(function(){
+            $('[data-toggle="tooltip"]').tooltip();
             var generate_url = 'tts/generate/',
                 get_file_url = 'tts/get_file',
                 generate_button = $('#generate_button'),

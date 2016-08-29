@@ -46,7 +46,7 @@
 
       <div class="well well-sm image-font">
         <div class="container-fluid">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <form id='1' method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                         <div class="form-group">
@@ -54,7 +54,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <button form="1" type="button" id="generate_button" class="btn btn-primary btn-lg" disabled ><i class="fa fa-refresh"></i> Сгенерировать аудио-файл</button>
                     <p></p>
                     <a id="download_button" target="_blank" class="btn btn-primary btn-lg " disabled><i class="fa fa-download"></i> Скачать</a>
@@ -63,16 +63,31 @@
                         <p>Your browser does not support the <code>audio</code> element.</p>
                     </audio>
                 </div>
+                <div class="col-md-3">
+                   {% if request.user.is_authenticated %}
+                    <div style="margin-left:14px">Последние файлы:</div>
+                    <ul class="nav nav-pills nav-stacked">
+                        {% for sf in request.user.soundfile_set.all %}
+                            <li><a href="{% url 'get_file' %}?uuid={{sf.uuid}}">{{ sf.text|truncatechars:30 }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
                 <!-- /.row -->
         </div>
-          Авторизация:
-            <a class="btn btn-social-icon btn-vk" href="/login/vk-oauth2"><span class="fa fa-vk"></span></a>
-            <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook"><span class="fa fa-facebook"></span></a>
-            <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook-app"><span class="fa fa-facebook"></span></a>
-            <a class="btn btn-social-icon btn-twitter disabled" href="/login/twitter"><span class="fa fa-twitter"></span></a>
-            <a class="btn btn-social-icon btn-google disabled" href="/login/yandex-oauth2"><span class="fa fa-">Y</span></a>
-            <a class="btn btn-social-icon btn-google disabled" href="/login/yaru"><span class="fa fa-">Я</span></a>
-          Авторизированнй клиент имеет больше возможностей для генерации wav
+        <div class="container-fluid">
+            <div class="col-md-12">
+              {% if request.user.is_anonymous %}
+              Авторизация<label class="btn btn-xs" data-toggle="tooltip" data-placement="right"  title="Авторизированнй клиент имеет больше возможностей для генерации wav и доступ к ранее сформированным файлам"><span class="fa fa-question"></span></label>:
+                <a class="btn btn-social-icon btn-vk" href="/login/vk-oauth2"><span class="fa fa-vk"></span></a>
+    {#            <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook"><span class="fa fa-facebook"></span></a>#}
+    {#            <a class="btn btn-social-icon btn-facebook disabled" href="/login/facebook-app"><span class="fa fa-facebook"></span></a>#}
+    {#            <a class="btn btn-social-icon btn-twitter disabled" href="/login/twitter"><span class="fa fa-twitter"></span></a>#}
+    {#            <a class="btn btn-social-icon btn-google disabled" href="/login/yandex-oauth2"><span class="fa fa-">Y</span></a>#}
+    {#            <a class="btn btn-social-icon btn-google disabled" href="/login/yaru"><span class="fa fa-">Я</span></a>#}
+              {% endif %}
+            </div>
+        </div>
       </div>
 
       <footer class="footer">
